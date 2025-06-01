@@ -1,13 +1,11 @@
 package processors
 
 import (
-	"log"
-	"time"
+	"database/sql"
+
+	"github.com/observly/bin/structs"
 )
 
-func ProcessAction() {
-	log.Println("Processing Event")
-	time.Sleep(10 * time.Second)
-	log.Println("Processed Event")
+func ProcessAction(incoming *structs.Action, db *sql.DB) {
 
 }

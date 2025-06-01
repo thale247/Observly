@@ -1,0 +1,70 @@
+CREATE TABLE `Event` (
+    `EventID` int(11) NOT NULL AUTO_INCREMENT,
+    `TimeStamp` datetime NOT NULL,
+    `Node` varchar(255) NOT NULL,
+    `Agent` varchar(255) NOT NULL,
+    `Component` varchar(255) NOT NULL,
+    `State` varchar(255) NOT NULL,
+    `Message` varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`EventID`)
+);
+
+CREATE TABLE `EventAttr` (
+    `EventAttrID` int(11) NOT NULL AUTO_INCREMENT,
+    `EventID` int(11) NOT NULL,
+    `EventAttrKey` varchar(255) NOT NULL,
+    `EventAttrValue` varchar(255) NOT NULL,
+    PRIMARY KEY (`EventAttrID`),
+    FOREIGN KEY (`EventID`) REFERENCES Event(`EventID`)
+);
+
+CREATE TABLE `Notification` (
+    `NotifyID` int(11) NOT NULL AUTO_INCREMENT,
+    `Node` varchar(255) NOT NULL,
+    `Agent` varchar(255) NOT NULL,
+    `Component` varchar(255) NOT NULL,
+    `State` varchar(255) NOT NULL,
+    `Type` varchar(255) NOT NULL,
+    `Target` varchar(255) NOT NULL,
+    `NotifyParm1` varchar(255),
+    `NotifyParm2` varchar(255),
+    `NotifyParm3` varchar(255),
+    `NotifyParm4` varchar(255),
+    `NotifyParm5` varchar(255),
+    `NotifyParm6` varchar(255),
+    `NotifyParm7` varchar(255),
+    `NotifyParm8` varchar(255),
+    `NotifyParm9` varchar(255),
+    `NotifyParm10` varchar(255),
+    PRIMARY KEY (`NotifyID`)
+);
+
+CREATE TABLE `NotifyAttr` (
+    `NotifyAttrID` int(11) NOT NULL AUTO_INCREMENT,
+    `NotifyID` int(11) NOT NULL,
+    `NotifyAttrKey` varchar(255) NOT NULL,
+    `NotifyAttrValue` varchar(255) NOT NULL,
+    PRIMARY KEY (`NotifyAttrID`),
+    FOREIGN KEY (`NotifyID`) REFERENCES Notification(`NotifyID`)
+);
+
+CREATE TABLE `Action` (
+    `ActionID` int(11) NOT NULL AUTO_INCREMENT,
+    `EventID` int(11) NOT NULL,
+    `NotifyID` int(11) NOT NULL,
+    `Type` varchar(255) NOT NULL,
+    `Target` varchar(255) NOT NULL,
+    `ActionParm1` varchar(255),
+    `ActionParm2` varchar(255),
+    `ActionParm3` varchar(255),
+    `ActionParm4` varchar(255),
+    `ActionParm5` varchar(255),
+    `ActionParm6` varchar(255),
+    `ActionParm7` varchar(255),
+    `ActionParm8` varchar(255),
+    `ActionParm9` varchar(255),
+    `ActionParm10` varchar(255),
+    PRIMARY KEY (`ActionID`, `EventID`),
+    FOREIGN KEY (`EventID`) REFERENCES Event(`EventID`),
+    FOREIGN KEY (`NotifyID`) REFERENCES Notification(`NotifyID`)
+);
